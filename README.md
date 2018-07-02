@@ -24,6 +24,18 @@ The character ranges were taken from http://www.localizingjapan.com/blog/2012/01
 27885
 ```
 
+### `japanese.counter` module
+
+```python
+>>> from japanese.counter import number
+
+>>> number(10)
+'じゅう'
+
+>>> number(99)
+'きゅうじゅうきゅう'
+```
+
 ## Todo
 
 * [x] string containing all hiragana characters
