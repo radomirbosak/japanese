@@ -19,8 +19,8 @@ _single_digits = [
 
 def number(num):
     if num < 0:
-        ValueError("Negative numbers are not supported.")
+        raise ValueError("Negative numbers are not supported.")
     if num > 10:
-        ValueError("Numbers larger than 10 are not supported.")
+        raise ValueError("Numbers larger than 10 are not supported.")
 
     return _single_digits[num]
