@@ -30,3 +30,10 @@ The character ranges were taken from http://www.localizingjapan.com/blog/2012/01
 * [x] string containing all katakana characters
 * [x] string containing all kanji characters
 * [ ] functions for various counters
+	* [ ] plain numbers
+	* [ ] days in week
+	* [ ] days in month
+	* [ ] months
+	* [ ] years
+	* [ ] hours
+	* [ ] minutes
