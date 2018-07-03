@@ -21,32 +21,29 @@ _single_digits = [
     'じゅう',
 ]
 
+_hundred_exceptions = {
+    3: 'さんびゃく',
+    6: 'ろっぴゃく',
+    8: 'はっぴゃく',
+}
 
-def _get_hundred_part(units):
-    exceptions = {
-        1: 'ひゃく',
-        3: 'さんびゃく',
-        6: 'ろっぴゃく',
-        8: 'はっぴゃく',
-    }
-
-    if units in exceptions:
-        return exceptions[units]
-
-    return number(units) + _hundred
+_thousand_exceptions = {
+    3: 'さんぜん',
+    8: 'はっせん',
+}
 
 
-def _get_thousand_part(units):
-    exceptions = {
-        1: 'せん',
-        3: 'さんぜん',
-        8: 'はっせん',
-    }
+def _compose_higher_part(num, word, exceptions=None):
+    if exceptions is None:
+        exceptions = {}
 
-    if units in exceptions:
-        return exceptions[units]
+    if num in exceptions:
+        return exceptions[num]
 
-    return number(units) + _thousand
+    if num == 1:
+        return word
+
+    return number(num) + word
 
 
 def _number_nozero(num):
@@ -65,11 +62,13 @@ def _number_nozero(num):
 
     if num < 1000:
         units, rest = divmod(num, 100)
-        return _get_hundred_part(units) + _number_nozero(rest)
+        higher_part = _compose_higher_part(units, _hundred, _hundred_exceptions)
+        return higher_part + _number_nozero(rest)
 
     if num < 10000:
         units, rest = divmod(num, 1000)
-        return _get_thousand_part(units) + _number_nozero(rest)
+        higher_part = _compose_higher_part(units, _thousand, _thousand_exceptions)
+        return higher_part + _number_nozero(rest)
 
 
 def number(num):
