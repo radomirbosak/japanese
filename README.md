@@ -50,7 +50,7 @@ The character ranges were taken from http://www.localizingjapan.com/blog/2012/01
 		* [x] counting to 99
 		* [x] counting to 999
 		* [x] counting to 9999 (sen)
-		* [ ] counting to 99999999
+		* [x] counting to 99999999 (man)
 		* [ ] counting to 999999999999
 		* [ ] counting to 9999999999999999
 		* [ ] counting to 99999999999999999999

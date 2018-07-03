@@ -5,6 +5,7 @@ _one = 'いち'
 _ten = 'じゅう'
 _hundred = 'ひゃく'
 _thousand = 'せん'
+_man = 'まん'
 
 
 _single_digits = [
@@ -34,6 +35,7 @@ _thousand_exceptions = {
 
 
 _orders = [
+    (10000, lambda x: _compose_higher_part(x, _man)),
     (1000, lambda x: _compose_higher_part(x, _thousand, _thousand_exceptions)),
     (100, lambda x: _compose_higher_part(x, _hundred, _hundred_exceptions)),
     (10, lambda x: _compose_higher_part(x, _ten)),
@@ -72,8 +74,8 @@ def _number_nozero(num):
 def number(num):
     if num < 0:
         raise ValueError("Negative numbers are not supported.")
-    if num > 9999:
-        raise ValueError("Numbers larger than 9999 are not supported.")
+    if num >= 10000**2:
+        raise ValueError("Numbers larger than 10^8 are not supported.")
 
     if num == 0:
         return _zero
