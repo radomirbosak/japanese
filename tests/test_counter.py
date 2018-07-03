@@ -57,3 +57,12 @@ def test_3010():
 
 def test_8007():
     assert number(8007) == 'はっせんなな'
+
+
+def test_10000():
+    assert number(10000) == 'まん'
+
+
+def test_88888888():
+    assert number(88888888) == ('はっせんはっぴゃくはちじゅうはちまん'
+                                'はっせんはっぴゃくはちじゅうはち')
