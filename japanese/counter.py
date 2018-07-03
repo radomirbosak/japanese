@@ -4,6 +4,7 @@ _zero = 'ぜろ'
 _one = 'いち'
 _ten = 'じゅう'
 _hundred = 'ひゃく'
+_thousand = 'せん'
 
 
 _single_digits = [
@@ -35,6 +36,19 @@ def _get_hundred_part(units):
     return number(units) + _hundred
 
 
+def _get_thousand_part(units):
+    exceptions = {
+        1: 'せん',
+        3: 'さんぜん',
+        8: 'はっせん',
+    }
+
+    if units in exceptions:
+        return exceptions[units]
+
+    return number(units) + _thousand
+
+
 def _number_nozero(num):
     if num == 0:
         return ''
@@ -53,12 +67,16 @@ def _number_nozero(num):
         units, rest = divmod(num, 100)
         return _get_hundred_part(units) + _number_nozero(rest)
 
+    if num < 10000:
+        units, rest = divmod(num, 1000)
+        return _get_thousand_part(units) + _number_nozero(rest)
+
 
 def number(num):
     if num < 0:
         raise ValueError("Negative numbers are not supported.")
-    if num > 999:
-        raise ValueError("Numbers larger than 999 are not supported.")
+    if num > 9999:
+        raise ValueError("Numbers larger than 9999 are not supported.")
 
     if num == 0:
         return _zero
