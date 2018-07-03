@@ -29,3 +29,19 @@ def test_40():
 
 def test_99():
     assert number(99) == 'きゅうじゅうきゅう'
+
+
+def test_100():
+    assert number(100) == 'ひゃく'
+
+
+def test_310():
+    assert number(310) == 'さんびゃくじゅう'
+
+
+def test_601():
+    assert number(601) == 'ろっぴゃくいち'
+
+
+def test_845():
+    assert number(845) == 'はっぴゃくよんじゅうご'

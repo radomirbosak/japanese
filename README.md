@@ -34,6 +34,9 @@ The character ranges were taken from http://www.localizingjapan.com/blog/2012/01
 
 >>> number(99)
 'きゅうじゅうきゅう'
+
+>>> number(845)
+'はっぴゃくよんじゅうご'
 ```
 
 ## Todo
@@ -43,6 +46,14 @@ The character ranges were taken from http://www.localizingjapan.com/blog/2012/01
 * [x] string containing all kanji characters
 * [ ] functions for various counters
 	* [ ] plain numbers
+		* [x] counting to 10
+		* [x] counting to 99
+		* [x] counting to 999
+		* [ ] counting to 9999
+		* [ ] counting to 99999999
+		* [ ] counting to 999999999999
+		* [ ] counting to 9999999999999999
+		* [ ] counting to 99999999999999999999
 	* [ ] days in week
 	* [ ] days in month
 	* [ ] months
