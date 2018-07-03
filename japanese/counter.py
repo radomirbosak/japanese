@@ -33,6 +33,12 @@ _thousand_exceptions = {
 }
 
 
+_orders = [
+    (1000, lambda x: _compose_higher_part(x, _thousand, _thousand_exceptions)),
+    (100, lambda x: _compose_higher_part(x, _hundred, _hundred_exceptions)),
+    (10, lambda x: _compose_higher_part(x, _ten)),
+]
+
 def _compose_higher_part(num, word, exceptions=None):
     if exceptions is None:
         exceptions = {}
@@ -53,22 +59,14 @@ def _number_nozero(num):
     if num == 1:
         return _one
 
-    if num < 10:
-        return _single_digits[num]
+    for order, compose_fn in _orders:
+        if num < order:
+            continue
 
-    if num < 100:
-        units, rest = divmod(num, 10)
-        return _single_digits[units] + _ten + _single_digits[rest]
+        units, rest = divmod(num, order)
+        return compose_fn(units) + _number_nozero(rest)
 
-    if num < 1000:
-        units, rest = divmod(num, 100)
-        higher_part = _compose_higher_part(units, _hundred, _hundred_exceptions)
-        return higher_part + _number_nozero(rest)
-
-    if num < 10000:
-        units, rest = divmod(num, 1000)
-        higher_part = _compose_higher_part(units, _thousand, _thousand_exceptions)
-        return higher_part + _number_nozero(rest)
+    return _single_digits[num]
 
 
 def number(num):
