@@ -33,26 +33,38 @@ _thousand_exceptions = {
     8: 'はっせん',
 }
 
+_replacements = {
+    # 100
+    'さんひゃく': 'さんびゃく',
+    'ろくひゃく': 'ろっぴゃく',
+    'はちひゃく': 'はっぴゃく',
+    # 1000
+    'さんせん': 'さんぜん',
+    'はちせん': 'はっせん',
+}
+
 
 _orders = [
-    (10000, lambda x: _compose_higher_part(x, _man)),
-    (1000, lambda x: _compose_higher_part(x, _thousand, _thousand_exceptions)),
-    (100, lambda x: _compose_higher_part(x, _hundred, _hundred_exceptions)),
-    (10, lambda x: _compose_higher_part(x, _ten)),
+    (10000, _man),
+    (1000, _thousand),
+    (100, _hundred),
+    (10, _ten),
 ]
 
-def _compose_higher_part(num, word, exceptions=None):
-    if exceptions is None:
-        exceptions = {}
-
-    if num in exceptions:
-        return exceptions[num]
-
+def _compose_higher_part(num, word):
     if num == 1:
         return word
 
-    return number(num) + word
+    naive_answer = number(num) + word
+    return _apply_end_replacement(naive_answer)
 
+
+def _apply_end_replacement(word):
+    for src, dst in _replacements.items():
+        if word.endswith(src):
+            return word[:-len(src)] + dst
+
+    return word
 
 def _number_nozero(num):
     if num == 0:
@@ -61,12 +73,13 @@ def _number_nozero(num):
     if num == 1:
         return _one
 
-    for order, compose_fn in _orders:
+    for order, order_word in _orders:
         if num < order:
             continue
 
         units, rest = divmod(num, order)
-        return compose_fn(units) + _number_nozero(rest)
+        higher_part = _compose_higher_part(units, order_word)
+        return higher_part + _number_nozero(rest)
 
     return _single_digits[num]
 
